@@ -7,10 +7,10 @@
 #include <boost/static_assert.hpp>
 #include <vector>
 
-#include <fog_kvh_1750/KVH1750Messages.hpp>
-#include <fog_kvh_1750/KVH1750Types.hpp>
+#include <imu_kvh_1750/KVH1750Messages.hpp>
+#include <imu_kvh_1750/KVH1750Types.hpp>
 
-namespace fog_kvh_1750
+namespace imu_kvh_1750
 {
     class KVH1750Parser
     {

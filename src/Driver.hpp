@@ -2,10 +2,10 @@
 #define FOG_KVH_1750_DRIVER_HPP
 
 #include <iodrivers_base/Driver.hpp>
-#include <fog_kvh_1750/KVH1750Parser.hpp>
-#include <fog_kvh_1750/KVH1750Types.hpp>
+#include <imu_kvh_1750/KVH1750Parser.hpp>
+#include <imu_kvh_1750/KVH1750Types.hpp>
 
-namespace fog_kvh_1750
+namespace imu_kvh_1750
 {
   class Driver : public iodrivers_base::Driver , public KVH1750Parser
   {

@@ -1,6 +1,6 @@
-#include <fog_kvh_1750/KVH1750Parser.hpp>
-#include <fog_kvh_1750/KVH1750Raw.hpp>
-#include <fog_kvh_1750/KVH1750Types.hpp>
+#include <imu_kvh_1750/KVH1750Parser.hpp>
+#include <imu_kvh_1750/KVH1750Raw.hpp>
+#include <imu_kvh_1750/KVH1750Types.hpp>
 #include <endian.h>
 #include <stdexcept>
 #include <base/float.h>
@@ -12,7 +12,7 @@
 using boost::lexical_cast;
 using std::string;
 
-using namespace fog_kvh_1750;
+using namespace imu_kvh_1750;
 
 float x_angle = 0;
 float y_angle = 0;

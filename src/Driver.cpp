@@ -1,10 +1,10 @@
-#include <fog_kvh_1750/Driver.hpp>
+#include <imu_kvh_1750/Driver.hpp>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <iostream>
 #include <fstream>
 
-using namespace fog_kvh_1750;
+using namespace imu_kvh_1750;
 
 Driver::Driver()
     : iodrivers_base::Driver(1000000)

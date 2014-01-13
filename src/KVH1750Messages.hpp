@@ -6,7 +6,7 @@
 #include <base/eigen.h>
 #include <vector>
 
-namespace fog_kvh_1750
+namespace imu_kvh_1750
 {
  struct Status
     {

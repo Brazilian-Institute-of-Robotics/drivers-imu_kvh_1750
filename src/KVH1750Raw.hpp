@@ -5,7 +5,7 @@
 #include <boost/static_assert.hpp>
 #include <vector>
 
-namespace fog_kvh_1750
+namespace imu_kvh_1750
 {
     namespace raw
     {
