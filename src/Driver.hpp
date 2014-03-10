@@ -2,18 +2,20 @@
 #define FOG_KVH_1750_DRIVER_HPP
 
 #include <iodrivers_base/Driver.hpp>
-#include <imu_kvh_1750/KVH1750Parser.hpp>
-#include <imu_kvh_1750/KVH1750Types.hpp>
+#include <base/samples/IMUSensors.hpp>
 
 namespace imu_kvh_1750
 {
-  class Driver : public iodrivers_base::Driver , public KVH1750Parser
+  class Driver : public iodrivers_base::Driver 
   {
     std::vector<uint8_t> buffer;
     int extractPacket (uint8_t const *buffer, size_t buffer_size) const;
+    void parseMessage(uint8_t const* buffer, size_t size);
     
     int mDesiredBaudrate;
 
+  private:
+    base::samples::IMUSensors imu;
 
   public:
     Driver();
@@ -22,9 +24,7 @@ namespace imu_kvh_1750
 
       /** Read available packets on the I/O */
       void read();
-      fog_acceleration getAcceleration();
-      fog_rotation_delta getRotationDelta();
-      fog_simple_orientation getSimpleOrientation();
+      base::samples::IMUSensors getIMUReading();
   };
 }
 
