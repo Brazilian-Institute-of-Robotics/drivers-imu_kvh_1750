@@ -11,8 +11,11 @@
 using namespace imu_kvh_1750;
 
 Driver::Driver()
-    : iodrivers_base::Driver(1000000)
-    , mDesiredBaudrate(921600)
+    : iodrivers_base::Driver(1000000), 
+    mDesiredBaudrate(921600),
+    temp(0),
+    counter(0)
+
 {
     buffer.resize(1000000);
     imu.acc[0] = imu.acc[1] = imu.acc[2] = imu.gyro[0] = imu.gyro[1] = imu.gyro[2] = 0.0;
@@ -80,7 +83,8 @@ void Driver::parseMessage(uint8_t const* buffer, size_t size)
     int x_delta_angle_int = buffer[3] | buffer[2] << 0x8 | buffer[1] << 0x10 | buffer[0] << 0x18;
     int y_delta_angle_int = buffer[7] | buffer[6] << 0x8 | buffer[5] << 0x10 | buffer[4] << 0x18;
     int z_delta_angle_int = buffer[11] | buffer[10] << 0x8 | buffer[9] << 0x10 | buffer[8] << 0x18;
-
+    counter = buffer[25];
+    temp = buffer[26] << 8 | buffer[27];
 
     float x_accel = *(reinterpret_cast<float *>(&x_accel_int));
     float y_accel = *(reinterpret_cast<float *>(&y_accel_int));
@@ -98,4 +102,12 @@ void Driver::parseMessage(uint8_t const* buffer, size_t size)
     imu.gyro[0] = x_delta_angle;
     imu.gyro[1] = y_delta_angle;
     imu.gyro[2] = z_delta_angle;
+}
+
+int Driver::getTemperature(){
+  return temp;
+}
+
+int Driver::getCounter(){
+  return counter;
 }

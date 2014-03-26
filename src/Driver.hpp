@@ -1,5 +1,5 @@
-#ifndef FOG_KVH_1750_DRIVER_HPP
-#define FOG_KVH_1750_DRIVER_HPP
+#ifndef IMU_KVH_1750_DRIVER_HPP
+#define IMU_KVH_1750_DRIVER_HPP
 
 #include <iodrivers_base/Driver.hpp>
 #include <base/samples/IMUSensors.hpp>
@@ -16,6 +16,8 @@ namespace imu_kvh_1750
 
   private:
     base::samples::IMUSensors imu;
+    uint8_t counter;
+    int16_t temp;
 
   public:
     Driver();
@@ -25,6 +27,8 @@ namespace imu_kvh_1750
       /** Read available packets on the I/O */
       void read();
       base::samples::IMUSensors getIMUReading();
+      int getTemperature();
+      int getCounter();
   };
 }
 
