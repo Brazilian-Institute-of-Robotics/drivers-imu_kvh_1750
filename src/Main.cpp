@@ -2,6 +2,7 @@
 #include <imu_kvh_1750/Driver.hpp>
 #include <base/samples/IMUSensors.hpp>
 #include <math.h>
+#include <unistd.h>
 //#include <imu_kvh_1750/KVH1750Types.hpp>
 
 using namespace imu_kvh_1750;
@@ -42,7 +43,8 @@ int main(int argc, char const* argv[])
         yaw += imu.gyro[2];
 //        std::cout << "Acceleration: " << imu.acc[0]  << "|" << imu.acc[1] << "|" << imu.acc[2] << std::endl;
 //        std::cout << "Rotation: " << imu.gyro[0]  << "|" << imu.gyro[1] << "|" << imu.gyro[2] << std::endl;
-        std::cout << "Accumulated Yaw (degrees): " << to_degrees(yaw) << std::endl;
+        std::cout << "Accumulated Yaw (degrees): " << to_degrees(yaw) << " Counter: " << driver.getCounter() << " Temperature: " << driver.getTemperature() << std::endl;
+        usleep(1);
     }
 	return 0;
 }
