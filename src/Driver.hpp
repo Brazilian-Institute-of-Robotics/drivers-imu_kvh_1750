@@ -6,7 +6,10 @@
 
 namespace imu_kvh_1750
 {
-  class Driver : public iodrivers_base::Driver 
+
+    static const unsigned int DEFAULT_SAMPLING_FREQUENCY = 1000;
+ 
+class Driver : public iodrivers_base::Driver 
   {
     std::vector<uint8_t> buffer;
     int extractPacket (uint8_t const *buffer, size_t buffer_size) const;

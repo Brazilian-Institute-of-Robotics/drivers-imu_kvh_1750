@@ -1,6 +1,7 @@
 #include <iostream>
 #include <imu_kvh_1750/Driver.hpp>
 #include <base/samples/IMUSensors.hpp>
+#include <math.h>
 //#include <imu_kvh_1750/KVH1750Types.hpp>
 
 using namespace imu_kvh_1750;
@@ -10,9 +11,13 @@ void usage()
     std::cerr << "fog_kvh_1750_bin DEVICE" << std::endl;
 }
 
+inline double to_degrees(double radians){
+  return radians*(180.0/M_PI);
+}
 
 int main(int argc, char const* argv[])
 {
+    double yaw = 0;
 
        if (argc != 2)
     {
@@ -34,8 +39,10 @@ int main(int argc, char const* argv[])
     {
         driver.read();
         base::samples::IMUSensors imu = driver.getIMUReading();
-        std::cout << "Acceleration: " << imu.acc[0]  << "|" << imu.acc[1] << "|" << imu.acc[2] << std::endl;
-        std::cout << "Rotation: " << imu.gyro[0]  << "|" << imu.gyro[1] << "|" << imu.gyro[2] << std::endl;
+        yaw += imu.gyro[2];
+//        std::cout << "Acceleration: " << imu.acc[0]  << "|" << imu.acc[1] << "|" << imu.acc[2] << std::endl;
+//        std::cout << "Rotation: " << imu.gyro[0]  << "|" << imu.gyro[1] << "|" << imu.gyro[2] << std::endl;
+        std::cout << "Accumulated Yaw (degrees): " << to_degrees(yaw) << std::endl;
     }
 	return 0;
 }
