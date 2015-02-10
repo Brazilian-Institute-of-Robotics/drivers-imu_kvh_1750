@@ -7,6 +7,7 @@
 #include <inttypes.h>
 #include <arpa/inet.h>
 #include <base/Logging.hpp>
+#include <base/Float.hpp>
 
 using namespace imu_kvh_1750;
 
@@ -19,6 +20,7 @@ Driver::Driver()
 {
     buffer.resize(1000000);
     imu.acc[0] = imu.acc[1] = imu.acc[2] = imu.gyro[0] = imu.gyro[1] = imu.gyro[2] = 0.0;
+    imu.mag[0] = imu.mag[1] = imu.mag[2] = base::unset<double>();
 }
 
 void Driver::open(std::string const& uri)
