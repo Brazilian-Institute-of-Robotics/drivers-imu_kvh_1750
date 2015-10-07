@@ -62,10 +62,10 @@ int Driver::extractPacket (uint8_t const *buffer, size_t buffer_size) const
     }
     
     //check for valid status byte
-    if(buffer[28] != 0x77){
-      LOG_WARN("INVALID STATUS BYTE FROM KVH");
-      return -buffer_size;
-    }
+   // if(buffer[28] != 0x77){
+   //   LOG_WARN("INVALID STATUS BYTE FROM KVH");
+   //   return -buffer_size;
+   // }
     return buffer_size; // everything ok
   }
   return -buffer_size;
