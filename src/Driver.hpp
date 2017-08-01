@@ -12,7 +12,6 @@ namespace imu_kvh_1750
 class Driver : public iodrivers_base::Driver 
   {
     std::vector<uint8_t> buffer;
-    int extractPacket (uint8_t const *buffer, size_t buffer_size) const;
     void parseMessage(uint8_t const* buffer, size_t size);
     
     int mDesiredBaudrate;
@@ -32,6 +31,9 @@ class Driver : public iodrivers_base::Driver
       base::samples::IMUSensors getIMUReading();
       int getTemperature();
       int getCounter();
+
+  protected:
+    int extractPacket (uint8_t const *buffer, size_t buffer_size) const;
   };
 }
 
