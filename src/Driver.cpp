@@ -6,17 +6,18 @@
 #include <boost/crc.hpp>
 #include <inttypes.h>
 #include <arpa/inet.h>
-#include <base/Logging.hpp>
+#include <base-logging/Logging.hpp>
 #include <base/Float.hpp>
 
 using namespace imu_kvh_1750;
 
+static const int KVH_1750_MSG_SIZE = 36;
+
 Driver::Driver()
     : iodrivers_base::Driver(1000000), 
     mDesiredBaudrate(921600),
-    temp(0),
-    counter(0)
-
+    counter(0),
+    temp(0)
 {
     buffer.resize(1000000);
     imu.acc[0] = imu.acc[1] = imu.acc[2] = imu.gyro[0] = imu.gyro[1] = imu.gyro[2] = 0.0;
@@ -30,6 +31,8 @@ void Driver::open(std::string const& uri)
 
 void Driver::read()
 {
+    /* The base class will ensure that the size of the packet
+     * read by readPacket will be of size KVH_1750_MSG_SIZE. */
     readPacket(&buffer[0], buffer.size());
     parseMessage(&buffer[4],buffer.size()-4);
 }
@@ -43,7 +46,7 @@ int Driver::extractPacket (uint8_t const *buffer, size_t buffer_size) const
   }
 
   // wait for incoming bytes for full package length
-  else if(buffer_size < 36){
+  else if(buffer_size < KVH_1750_MSG_SIZE){
     return 0;
   }
 
@@ -58,17 +61,17 @@ int Driver::extractPacket (uint8_t const *buffer, size_t buffer_size) const
     //check for right checksum
     if(checksum != kvh_crc.checksum()){
       LOG_WARN("WRONG CRC WARNING\n");
-      return -buffer_size;
+      return -KVH_1750_MSG_SIZE;
     }
     
     //check for valid status byte
     if(buffer[28] != 0x77){
       LOG_WARN("INVALID STATUS BYTE FROM KVH");
-      return -buffer_size;
+      return -KVH_1750_MSG_SIZE;
     }
-    return buffer_size; // everything ok
+    return KVH_1750_MSG_SIZE; // everything ok
   }
-  return -buffer_size;
+  return -KVH_1750_MSG_SIZE;
 }
 
 base::samples::IMUSensors Driver::getIMUReading(){
